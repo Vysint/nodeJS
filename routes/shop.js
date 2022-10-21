@@ -9,7 +9,8 @@ const router = expresss.Router();
 
 
 router.get("/", (req, res, next) => {
-  res.render('shop');
+  const products = adminData.products;
+  res.render('shop', {prods: products});
 });
 
 
