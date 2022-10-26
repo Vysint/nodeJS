@@ -1,9 +1,1 @@
-[
-  {
-    "id": "3245",
-    "title": "A Book",
-    "imageUrl": "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg",
-    "description": "This is an awesome book!",
-    "price": "19"
-  }
-]
+[{"id":"3245","title":"A Book","imageUrl":"https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg","description":"This is an awesome book!","price":"19"},{"title":"Maldives","imageUrl":"https://images.news18.com/ibnlive/uploads/2021/09/1600x1600px_b-16329897223x2.jpg?impolicy=website&width=510&height=356","description":"This is beautiful Maldives","price":"20.99","id":"0.5948356765464322"}]
