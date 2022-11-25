@@ -89,8 +89,14 @@ exports.getProducts = (req, res, next) => {
     });
 };
 
-// exports.postDeleteProduct = (req, res, next) => {
-//   const prodId = req.body.productId;
-//   Product.deleteById(prodId);
-//   res.redirect('/admin/products');
-// };
+exports.postDeleteProduct = (req, res, next) => {
+  const prodId = req.body.productId;
+  Product.deleteById(prodId)
+    .then(() => {
+      console.log("Destroyed Product");
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
