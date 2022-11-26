@@ -21,6 +21,8 @@ const userSchema = new Schema({
   },
 });
 
+module.exports = mongoose("User", userSchema);
+
 // const mongodb = require('mongodb');
 // const getDb = require('../util/database').getDb;
 
