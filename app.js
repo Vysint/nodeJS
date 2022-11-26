@@ -35,20 +35,23 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoose.connect(process.env.MONGO_DB).then((result) => {
-  User.findOne().then((user) => {
-    if (!user) {
-      const user = new User({
-        name: "Paige",
-        email: "paige@test.com",
-        cart: {
-          items: [],
-        },
-      });
-      user.save();
-    }
-  });
-  app.listen(process.env.PORT, () =>
-    console.log(`Listening at ${process.env.PORT}`)
-  );
-});
+mongoose
+  .connect(process.env.MONGO_DB)
+  .then((result) => {
+    User.findOne().then((user) => {
+      if (!user) {
+        const user = new User({
+          name: "Paige",
+          email: "paige@test.com",
+          cart: {
+            items: [],
+          },
+        });
+        user.save();
+      }
+    });
+    app.listen(process.env.PORT, () =>
+      console.log(`Listening at ${process.env.PORT}`)
+    );
+  })
+  .catch((err) => console.log(err));
