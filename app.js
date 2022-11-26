@@ -6,8 +6,11 @@ const bodyParser = require("body-parser");
 const errorController = require("./controllers/error");
 // const User = require("./models/user");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
 const app = express();
+
+dotenv.config();
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -34,11 +37,11 @@ app.use(errorController.get404);
 
 mongoose
   .connect(
-    "mongodb+srv://paige:0723055173@cluster0.myzmae1.mongodb.net/shop?retryWrites=true&w=majority"
+   process.env.MONGO_DB
   )
   .then((result) => {
-    app.listen(3000, () => {
-      console.log("Listening at PORT 3000");
+    app.listen(process.env.PORT, () => {
+      console.log(`Listening at ${process.env.PORT}`);
     });
   })
   .catch((err) => console.log(err));
