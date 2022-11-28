@@ -8,9 +8,15 @@ const errorController = require("./controllers/error");
 const User = require("./models/user");
 const dotenv = require("dotenv");
 const session = require("express-session");
+const MongoDBStore = require("connect-mongodb-session")(session);
 
 const app = express();
 dotenv.config();
+
+const store = new MongoDBStore({
+  uri: process.env.MONGO_DB,
+  collection: "sessions",
+});
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -27,6 +33,7 @@ app.use(
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     resave: false,
     saveUninitialized: false,
+    store: store,
   })
 );
 
@@ -60,7 +67,7 @@ mongoose
       }
     });
     app.listen(process.env.PORT, () =>
-      console.log(`Listening in ${process.env.PORT}`)
+      console.log(`Listening at ${process.env.PORT}`)
     );
   })
   .catch((err) => {
