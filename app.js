@@ -3,16 +3,16 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
-const errorController = require("./controllers/error");
-const User = require("./models/user");
 const dotenv = require("dotenv");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 
-const app = express();
+const errorController = require("./controllers/error");
+const User = require("./models/user");
+
 dotenv.config();
 
+const app = express();
 const store = new MongoDBStore({
   uri: process.env.MONGO_DB,
   collection: "sessions",
@@ -27,10 +27,9 @@ const authRoutes = require("./routes/auth");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
-
 app.use(
   session({
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    secret: "my secret",
     resave: false,
     saveUninitialized: false,
     store: store,
@@ -52,6 +51,7 @@ app.use((req, res, next) => {
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
+
 app.use(errorController.get404);
 
 mongoose
