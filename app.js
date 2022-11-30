@@ -3,23 +3,20 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
-const csrf = require("csurf");
 const flash = require("connect-flash");
+const dotenv = require("dotenv");
 
 const errorController = require("./controllers/error");
 const User = require("./models/user");
 
-dotenv.config();
-
 const app = express();
+dotenv.config();
 const store = new MongoDBStore({
   uri: process.env.MONGO_DB,
   collection: "sessions",
 });
-const csrfProtection = csrf();
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -39,7 +36,6 @@ app.use(
   })
 );
 
-app.use(csrfProtection);
 app.use(flash());
 
 app.use((req, res, next) => {
@@ -56,8 +52,9 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
-  res.locals.csrfToken = req.csrfToken();
+  next();
 });
+
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
@@ -71,6 +68,4 @@ mongoose
       console.log(`Listening at ${process.env.PORT}`)
     );
   })
-  .catch((err) => {
-    console.log(err);
-  });
+  .catch((err) => console.log(err));
