@@ -48,7 +48,6 @@ exports.postAddProduct = (req, res, next) => {
       hasError: true,
       product: {
         title: title,
-        imageUrl: imageUrl,
         price: price,
         description: description
       },
@@ -205,9 +204,9 @@ exports.deleteProduct = (req, res, next) => {
     })
     .then(() => {
       console.log('DESTROYED PRODUCT');
-      res.status(200).json({message: 'Success'})
+      res.status(200).json({ message: 'Success!' });
     })
     .catch(err => {
-      res.status(500).json({message: "Deleting product failed!"})
+      res.status(500).json({ message: 'Deleting product failed.' });
     });
 };
